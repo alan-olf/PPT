@@ -1,25 +1,48 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using PPT.App.Core.ApiModels.ApiResponse;
 using PPT.App.Core.Services.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PPT.App.Core.Services
 {
 
     public class UserService : IUserService
-    {  
+    {
         private readonly ILogger _logger;
         public UserService(ILogger<UserService> logger)
         {
             _logger = logger;
         }
 
-        public Task<string> GetUserAvatarAsync(string userIdentifier)
+        public async Task<string> GetUserAvatarAsync(string userIdentifier)
         {
-            throw new NotImplementedException();
+            var last = userIdentifier.Last();
+            var partOne = "6789";
+
+            if (partOne.Contains(last))
+            {
+                var url = AppConstant.BaseUrlPartOne.Replace("{identifier}", last.ToString());
+
+                using (var httpClient = new HttpClient())
+                {
+                    var response = await httpClient.GetAsync(url);
+
+                    if (response != null && response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<AvatarApiResponse>(content)?.Url;
+
+                    }
+
+                }
+
+
+            }
+
+            return null;
+
         }
+         
     }
 }
