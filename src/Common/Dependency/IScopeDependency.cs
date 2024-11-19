@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPT.App.Common.Dependency
 {
-    public class IScopeDependency
+    public interface IScopeDependency
     {
     }
 }

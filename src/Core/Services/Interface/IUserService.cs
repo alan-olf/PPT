@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace PPT.App.Core.Services.Interface
 {
-    public class IUserService : IScopeDependency
+    public interface IUserService : IScopeDependency
     {
+        Task<string> GetUserAvatarAsync(string userIdentifier);
     }
 }
