@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PPT.App.Core.ApiModels.User;
+using PPT.App.Core.GuardClause;
 using PPT.App.Core.Services;
 using PPT.App.Core.Services.Interface;
 
@@ -23,6 +24,8 @@ namespace PPT.App.WebApi.Controllers
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<ActionResult<UserInfoApiResponse>> GetUserAvatar(string userIdentifier)
         {
+            Guard.Against.NullOrEmpty(userIdentifier, "userIdentifier is not available !");
+
             _logger.LogInformation("get user avatar #{userIdentifier} ", userIdentifier);
 
             var result = await _userService.GetUserAvatarAsync(userIdentifier);
