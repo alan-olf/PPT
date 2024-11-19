@@ -63,7 +63,7 @@ namespace PPT.App.Core.Services
                 return AppConstant.BaseUrlVowel.Replace("{identifier}", last);
 
             }
-            else if (Regex.Match(last, partFour).Success)
+            else if (Regex.IsMatch(userIdentifier, partFour))
             {
 
                 return AppConstant.BaseUrlVowel.Replace("{identifier}", new Random().Next(1,6).ToString());
