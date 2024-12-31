@@ -21,7 +21,8 @@ namespace PPT.App.WebApi.Controllers
         [HttpGet]
         [Route("", Name = nameof(GetUserAvatar))]
         [Produces("application/json")]
-        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserInfoApiResponse>> GetUserAvatar(string userIdentifier)
         {
             Guard.Against.NullOrEmpty(userIdentifier, "userIdentifier is not available !");
